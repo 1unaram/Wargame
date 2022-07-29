@@ -7,10 +7,10 @@ def slog(n, m): return success(": ".join([n, hex(m)]))
 
 
 # Connect
-HOST = 'host3.dreamhack.games'
-PORT = 24425
-p = remote(HOST, PORT)
-# p = process('./r2s')
+# HOST = 'host3.dreamhack.games'
+# PORT = 24425
+# p = remote(HOST, PORT)
+p = process('./r2s')
 
 # Set context
 context.arch = 'amd64'
