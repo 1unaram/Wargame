@@ -23,5 +23,5 @@
 |           RET           |      <- 0x04   <- get_shell address
 |-------------------------|
 
-> selece ~ box 크기 : 0x8a
+> select ~ box 크기 : 0x8a
 > canary : 0x8a - 0x82 = 0x08

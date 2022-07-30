@@ -17,7 +17,6 @@ void get_shell() {
 }
 void print_box(unsigned char *box, int idx) {
     printf("Element of index %d is : %02x\n", idx, box[idx]);
-//  printf("Element of index %d is : %02x\n", idx, *(box+idx));
 }
 void menu() {
     puts("[F]ill the box");

