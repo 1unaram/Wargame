@@ -17,11 +17,13 @@
 |-------------------------|
 |           name          |      <- 0x40  
 |-------------------------|
-|          canary         |      <- 0x08
+|          canary         |      <- 0x04
+|-------------------------|
+|        dummy data       |      <- 0x04
 |-------------------------|
 |           SFP           |      <- 0x04
 |-------------------------|
-|           RET           |      <- 0x04   <- get_shell address
+|           RET           |      <- 0x04   
 |-------------------------|
 
 
@@ -31,3 +33,8 @@ $ebp ~ select : 0x8a
 $ebp ~ box : 0x88
 $ebp ~ name : 0x48
 $ebp ~ canary : 0x08
+
+if canary == 0x00abcdef
+stored by little Endian -> efcdab00
+
+| du du du du | ef ca ab 00 |
