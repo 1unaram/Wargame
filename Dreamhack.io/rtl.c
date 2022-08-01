@@ -2,18 +2,20 @@
 // Compile: gcc -o rtl rtl.c -fno-PIE -no-pie
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 
-const char* binsh = "/bin/sh";
+const char *binsh = "/bin/sh";
 
-int main() {
+int main()
+{
   char buf[0x30];
 
   setvbuf(stdin, 0, _IONBF, 0);
   setvbuf(stdout, 0, _IONBF, 0);
 
   // Add system function to plt's entry
-  system("echo 'system@plt");
+  system("echo 'system@plt'");
 
   // Leak canary
   printf("[1] Leak Canary\n");
