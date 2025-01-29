@@ -1,5 +1,14 @@
 from pwn import *
 
+'''
+idx 0x4 <- ebp-0x94
+name_len 0x4 <- epb-0x90
+select 0x8 <- ebp-0x8c
+box 0x40 <- ebp-0x88
+name 0x40 <- ebp-0x48
+canary 0x4 <- ebp-0x8
+'''
+
 
 # Define slog function
 def slog(n, m): return success(": ".join([n, hex(m)]))
