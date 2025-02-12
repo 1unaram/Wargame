@@ -75,10 +75,10 @@ p.interactive()
 
 '''
 
-|      buf      |  <- 0x40
-|     dummy     |  <- 0x04
-|      sfp      |  <- 0x04
-|      ret      |  <- 0x04
+|      buf      |  <- ebp - 0x40
+|     dummy     |  <- ebp - 0x4
+|      sfp      |  <- ebp
+|      ret      |  <- ebp + 0x4
 
 
 '''
